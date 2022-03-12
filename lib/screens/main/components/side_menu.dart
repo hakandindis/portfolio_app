@@ -32,6 +32,7 @@ class SideMenu extends StatelessWidget {
                         style: Theme.of(context).textTheme.subtitle2),
                   ),
                   AnimatedCircularProgressIndicator(),
+                  
                 ],
               ),
             ),
