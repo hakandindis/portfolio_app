@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:portfolio_app/constants.dart';
 import 'package:portfolio_app/screens/main/components/side_menu.dart';
 

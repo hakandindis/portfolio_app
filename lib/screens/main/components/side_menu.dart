@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:portfolio_app/components/animated_progress_indicator.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:portfolio_app/constants.dart';
 import 'package:portfolio_app/screens/main/components/area_info_text.dart';
 import 'package:portfolio_app/screens/main/components/my_info.dart';
+import 'package:portfolio_app/screens/main/components/skills.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -26,48 +28,88 @@ class SideMenu extends StatelessWidget {
                   AreaInfoText(title: 'Residence', text: 'Bangladesh'),
                   AreaInfoText(title: 'City', text: 'Dhaka'),
                   AreaInfoText(title: 'Age', text: '22'),
-                  Column(
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                      Divider(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: defaultPadding),
-                        child: Text("Skills",
-                            style: Theme.of(context).textTheme.subtitle2),
-                      ),
-                      Row(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          Expanded(
-                            child: AnimatedCircularProgressIndicator(
-                              percentage: 0.8,
-                              label: "Flutter",
-                            ),
-                          ),
-                          SizedBox(width: defaultPadding),
-                          Expanded(
-                            child: AnimatedCircularProgressIndicator(
-                              percentage: 0.72,
-                              label: "Django",
-                            ),
-                          ),
-                          SizedBox(width: defaultPadding),
-                          Expanded(
-                            child: AnimatedCircularProgressIndicator(
-                              percentage: 0.65,
-                              label: "Firebase",
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  Skills(),
+                  SizedBox(height: defaultPadding),
+                  Coding(),
+                  Divider(),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: defaultPadding),
+                    child: Text("Knowledge",
+                        style: Theme.of(context).textTheme.subtitle2),
                   ),
+                  Row(children: [
+                    SvgPicture.asset("assets/icons/check.svg"),
+                  ],),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Coding extends StatelessWidget {
+  const Coding({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Divider(),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+          child: Text("Coding", style: Theme.of(context).textTheme.subtitle2),
+        ),
+        AnimatedLinearProgressIndicator(percentage: 0.7, label: "Dart"),
+        AnimatedLinearProgressIndicator(percentage: 0.68, label: "Python"),
+        AnimatedLinearProgressIndicator(percentage: 0.9, label: "HTML"),
+        AnimatedLinearProgressIndicator(percentage: 0.75, label: "CSS"),
+        AnimatedLinearProgressIndicator(percentage: 0.58, label: "JavaScript"),
+      ],
+    );
+  }
+}
+
+class AnimatedLinearProgressIndicator extends StatelessWidget {
+  const AnimatedLinearProgressIndicator({
+    Key? key,
+    required this.percentage,
+    required this.label,
+  }) : super(key: key);
+
+  final double percentage;
+  final String label;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: defaultPadding),
+      child: TweenAnimationBuilder(
+        tween: Tween<double>(begin: 0, end: percentage),
+        duration: defaultDuration,
+        builder: (context, double value, child) => Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                Text(label, style: TextStyle(color: Colors.white)),
+                Text((value * 100).toInt().toString() + "%"),
+              ],
+            ),
+            SizedBox(height: defaultPadding / 2),
+            LinearProgressIndicator(
+              value: value,
+              color: primaryColor,
+              backgroundColor: darkColor,
+            ),
+          ],
+        ),
       ),
     );
   }
