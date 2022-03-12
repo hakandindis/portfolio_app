@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:portfolio_app/constants.dart';
+import 'package:portfolio_app/screens/main/components/side_menu.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -17,31 +18,7 @@ class MainScreen extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: Drawer(
-                  child: Column(
-                    children: [
-                      AspectRatio(
-                        aspectRatio: 1.23,
-                        child: Container(
-                          color: Color(0xFF242430),
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 50,
-                                backgroundImage:
-                                    AssetImage("assets/images/IMG_7344.jpg"),
-                              ),
-                              Text(
-                                "Abu Anwar",
-                                style: Theme.of(context).textTheme.subtitle2,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                child: SideMenu(),
               ),
               Expanded(
                 flex: 7,
