@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_app/constants.dart';
 import 'package:portfolio_app/models/Project.dart';
+import 'package:portfolio_app/responsive.dart';
 import 'package:portfolio_app/screens/home/components/project_card.dart';
 
 class MyProjects extends StatelessWidget {
@@ -17,24 +20,45 @@ class MyProjects extends StatelessWidget {
           "My Projects",
           style: Theme.of(context).textTheme.headline6,
         ),
-        //const SizedBox(height: defaultPadding),
-        GridView.builder(
-          //primary: false,
-          //controller: _scrollController,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: demo_projects.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1.3,
-            crossAxisSpacing: defaultPadding,
-            mainAxisSpacing: defaultPadding,
-          ),
-          itemBuilder: (context, index) => ProjectCard(
-            project: demo_projects[index],
-          ),
+        const SizedBox(height: defaultPadding),
+        Responsive(
+          mobile: ProjectsGridView(crossAxisCount: 1, childAspectRatio: 1.7),
+          mobileLarge: ProjectsGridView(crossAxisCount: 2),
+          tablet: ProjectsGridView(childAspectRatio: 1.1),
+          desktop: ProjectsGridView(),
         ),
       ],
+    );
+  }
+}
+
+class ProjectsGridView extends StatelessWidget {
+  const ProjectsGridView({
+    Key? key,
+    this.crossAxisCount = 3,
+    this.childAspectRatio = 1.3,
+  }) : super(key: key);
+
+  final int crossAxisCount;
+  final double childAspectRatio;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      //primary: false,
+      //controller: _scrollController,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: demo_projects.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        childAspectRatio: childAspectRatio,
+        crossAxisSpacing: defaultPadding,
+        mainAxisSpacing: defaultPadding,
+      ),
+      itemBuilder: (context, index) => ProjectCard(
+        project: demo_projects[index],
+      ),
     );
   }
 }
