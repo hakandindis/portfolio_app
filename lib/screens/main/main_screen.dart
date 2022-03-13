@@ -26,6 +26,8 @@ class MainScreen extends StatelessWidget {
               Expanded(
                 flex: 7,
                 child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  primary: false,
                   child: Column(
                     children: [
                       ...children
